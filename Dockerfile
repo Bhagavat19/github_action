@@ -1,11 +1,5 @@
-FROM nginx
-RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-COPY content /usr/share/nginx/html
-COPY conf /etc/nginx
-VOLUME /usr/share/nginx/html
-# VOLUME /etc/nginx
+FROM debian:latest
+RUN apt-get update && apt-get install --no-install-recommends -y nginx; \
+ echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 80
-
-STOPSIGNAL SIGQUIT
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/sbin/nginx"]
